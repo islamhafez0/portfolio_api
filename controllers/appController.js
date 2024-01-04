@@ -1,5 +1,4 @@
 const nodemailer = require("nodemailer");
-const { EMAIL, PASSWORD } = require("../env.js");
 const Mailgen = require("mailgen");
 
 /** send mail with test acc */
@@ -111,13 +110,13 @@ const contact = async (req, res) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: EMAIL,
-      pass: PASSWORD,
+      user: process.env.EMAIL,
+      pass: process.env.PASSWORD,
     },
   });
 
   const mailOptions = {
-    from: EMAIL,
+    from: process.env.EMAIL,
     to: "moeslam843@gmail.com",
     subject: "New Contact Form Submission",
     text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
