@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const projectsData = require("../data/projects.js");
+const blogPosts = require("../data/blog.js");
 const { signup, getBill, contact } = require("../controllers/appController.js");
 
 // Define routes using the router
@@ -22,4 +23,14 @@ router.get("/projects", (req, res) => {
 });
 router.post("/contact", contact);
 
+router.get("/blog", (req, res) => {
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 5;
+  const startIndex = (page - 1) * limit;
+  const endIndex = page * limit;
+
+  const paginatedPosts = blogPosts.slice(startIndex, endIndex);
+
+  res.json(paginatedPosts);
+});
 module.exports = router;
